@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  ul
+    each plant in plants
+      li
+        b #{plant.common_name}
+        | &nbsp;
+        span (#{plant.genus} #{plant.species})

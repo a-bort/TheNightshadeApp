@@ -1,0 +1,13 @@
+{
+  "name": "nightshade-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": ">=4.5.0",
+    "pug": "2.*",
+    "mysql": "2.*"
+  }
+}
