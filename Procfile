@@ -1,1 +1,1 @@
-web:
+web: nf start
