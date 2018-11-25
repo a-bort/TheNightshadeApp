@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  h1 Add Plants
+  form(name="addPlant", action="/plants/add", method="post")
+    div
+      label(for="common_name") Common Name
+      input(type="text", id="common_name", name="common_name")
+    div
+      label(for="genus") Genus
+      input(type="text", id="genus", name="genus")
+    div
+      label(for="species") Species
+      input(type="text", id="species", name="species")
+    input(type="submit" value="Add")

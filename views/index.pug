@@ -3,8 +3,22 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+    if user
+      | , #{user.username}
   p
-    b Common name (Genus species)
+  if user
+    span.pad-right-sm
+      a(href="/logout") Logout
+    if (user.admin)
+        span.pad-right-sm
+          a(href="/plants/add") Add Plant
+  else
+    span.pad-right-sm
+      a(href="/register") Register
+    span.pad-right-sm
+      a(href="/login") Login
+  p
+    h3 Common name (Genus species)
   ul
     each plant in plants
       li
