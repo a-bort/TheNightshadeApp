@@ -1,17 +1,19 @@
-exports.get = function(userId, callback){
+var UserModel = require("../dataModel/UserModel.js");
+
+exports.get = function(userId, done){
   pool.query('SELECT * FROM `user` WHERE `user_id` = ?', [userId], function(error, results, fields){
-    callback(error, results[0]);
+    done(error, new UserModel().fromDB(results[0]).toJSON());
   });
 }
 
-exports.getByUsername = function(userName, callback){
+exports.getByUsername = function(userName, done){
   pool.query('SELECT * FROM `user` WHERE `username` = ?', [userName], function(error, results, fields){
-    callback(error, results[0]);
+    done(error, new UserModel().fromDB(results[0]).toJSON());
   });
 }
 
-exports.insert = function(userObject, callback){
-  pool.query('INSERT INTO user SET ?', userObject, function(error, results, fields){
-    callback(error, results);
+exports.insert = function(userJSON, done){
+  pool.query('INSERT INTO user SET ?', new UserModel(userJSON).toDB(), function(error, results, fields){
+    done(error, results);
   })
 }

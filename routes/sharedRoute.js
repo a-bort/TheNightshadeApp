@@ -1,5 +1,3 @@
-var userService = require("../service/userService.js");
-
 exports.defaultRedirect = function(res){
   res.redirect('/')
 }

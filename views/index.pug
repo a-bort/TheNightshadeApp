@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  script(type="text/javascript" src="/javascripts/app/testingPrototypes.js")
   h1= title
   p Welcome to #{title}
     if user
@@ -22,6 +23,6 @@ block content
   ul
     each plant in plants
       li
-        b #{plant.common_name}
+        b #{plant.commonName}
         | &nbsp;
         span (#{plant.genus} #{plant.species})
