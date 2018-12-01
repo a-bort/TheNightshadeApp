@@ -12,6 +12,7 @@
     "mysql": "2.*",
     "passport": "0.*",
     "passport-local": "1.*",
-    "bcrypt": "2.*"
+    "bcrypt": "2.*",
+    "bluebird": "3.*"
   }
 }
