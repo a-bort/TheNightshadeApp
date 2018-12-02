@@ -21,16 +21,15 @@ var shared = require("./sharedRoute.js");
      } else if(password != passwordConfirm){
        res.redirect('/register?error=' + encodeURIComponent("Password and confirmation do not match") + "&message=" + encodeURIComponent("User not created"));
      }  else {
-       userService.register(username, password, function(err, user){
-         if(err){
-           console.log(err);
-           res.redirect('/register?error=' + encodeURIComponent("Exception creating user") + "&message=" + encodeURIComponent("User not created"));
-         } else{
-           req.login(user, function(err){
-             if(err) { console.log(err); }
-             res.redirect('/');
-           });
-         }
+       userService.register(username, password)
+       .then(function(user){
+         req.login(user, function(err){
+           if(err) { console.log(err); }
+           res.redirect('/');
+         });
+       }).catch(function(e){
+         console.log(e);
+         res.redirect('/register?error=' + encodeURIComponent("Exception creating user") + "&message=" + encodeURIComponent("User not created"));
        });
      }
    });

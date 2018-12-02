@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  h1 Random Plant
+  p
+    a(href="/") Back
+  p
+    span
+      b #{plant.commonName}
+    span.pad-left-sm (#{plant.genus} #{plant.species})

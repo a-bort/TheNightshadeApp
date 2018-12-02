@@ -23,7 +23,8 @@ var pool = mysql.createPool({
   connectionLimit: process.env.DB_CONN
 });
 
-global.pool = pool;
+global.Promise = require("bluebird");
+global.pool = Promise.promisifyAll(pool);
 
 //View Setup
 app.set('views', './views');
@@ -43,6 +44,7 @@ app.use(passport.session());
 require('./routes/indexRoute.js')(app);
 require('./routes/userRoute.js')(app, passport);
 require('./routes/plantRoute.js')(app);
+require('./routes/defaultRoute.js')(app);
 
 http.createServer(app).listen(port, function(){
   console.log('Express server listening on port ' + port);

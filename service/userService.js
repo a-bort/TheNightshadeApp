@@ -1,21 +1,18 @@
 var user = require('../data/user.js');
-var bcrypt = require('bcrypt');
+var bcrypt = Promise.promisifyAll(require('bcrypt'));
 
-exports.get = function(userId, done){
-  user.get(userId, done);
+exports.get = function(userId){
+  return user.get(userId);
 }
 
-exports.getByUsername = function(userName, done){
-  user.getByUsername(userName, done);
+exports.getByUsername = function(userName){
+  return user.getByUsername(userName);
 }
 
 exports.register = function(username, password, callback){
-  bcrypt.hash(password, 10, function(err, hash){
-    if(err){ callback(err); return; }
+  return bcrypt.hash(password, 10)
+  .then(function(hash){
     var userJSON = { username: username, password: hash, admin: 0 };
-    user.insert(userJSON, function(err, results){
-      if(err){ return callback(err); }
-      exports.get(results.insertId, callback);
-    });
-  })
+    return user.insert(userJSON);
+  }).then(exports.get);
 }

@@ -17,3 +17,14 @@ a {
 .pad-right-lg {
   padding-right: 25px;
 }
+
+.pad-left-sm {
+  padding-left: 5px;
+}
+
+.pad-left-md {
+  padding-left: 15px;
+}
+.pad-left-lg {
+  padding-left: 25px;
+}
