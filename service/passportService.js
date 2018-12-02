@@ -9,7 +9,7 @@ exports.configurePassport = function(passport){
         if (!user){ return done(null, false);}
         if (!bcrypt.compareSync(password, user.password)) { return done(null, false);}
         return done(null, user);
-      });
+      }).catch(done);
     }
   ));
 
