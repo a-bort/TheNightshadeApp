@@ -1,12 +1,18 @@
 var shared = require("./sharedRoute.js");
 var plantService = require("../service/plantService.js");
 
-module.exports = function(app){
-  app.get('/plants/add', shared.requireAdmin, function(req, res){
-    res.render('plants/add');
+module.exports = function(router){
+
+  router.get('/plants/get', function(req, res){
+    plantService.getAll().then(function(plants){
+      res.json({plants: plants});
+    }).catch(function(e){
+      console.log(e);
+      res.json({plants: [], error: "Unable to retrieve plants"});
+    });
   });
 
-  app.post('/plants/add', shared.requireAdmin, function(req, res){
+  router.post('/plants/add', shared.requireAdmin, function(req, res){
     plantService.addPlant(req.body)
     .catch(function(e){
       console.log(e);
@@ -15,11 +21,11 @@ module.exports = function(app){
     });
   });
 
-  app.get('/plants/random', function(req, res){
+  router.get('/plants/random', function(req, res){
     plantService.getRandom().then(function(plant){
-      res.render('plants/random', {plant: plant});
+      res.json({plant: plant});
     }).catch(function(error){
-      res.render('plants/random', {value: error.message});
+      res.json({value: error.message});
     });
   });
 }

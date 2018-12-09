@@ -12,6 +12,7 @@ var express = require('express')
   , passport = require('passport');
 
 var app = express();
+var router = express.Router();
 var port = process.env.PORT || process.env.APP_PORT;
 
 var pool = mysql.createPool({
@@ -26,12 +27,9 @@ var pool = mysql.createPool({
 global.Promise = require("bluebird");
 global.pool = Promise.promisifyAll(pool);
 
-//View Setup
-app.set('views', './views');
-app.set('view engine', 'pug');
-
 //General App Middleware
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.use('/api', router);
 app.use(session({secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -41,10 +39,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-require('./routes/indexRoute.js')(app);
-require('./routes/userRoute.js')(app, passport);
-require('./routes/plantRoute.js')(app);
-require('./routes/defaultRoute.js')(app);
+require('./routes/userRoute.js')(router, passport);
+require('./routes/plantRoute.js')(router);
+require('./routes/defaultRoute.js')(router);
 
 http.createServer(app).listen(port, function(){
   console.log('Express server listening on port ' + port);
