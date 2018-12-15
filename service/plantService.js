@@ -4,7 +4,7 @@ exports.getAll = function(){
   return plant.getAll();
 }
 
-exports.addPlant = function(plantJSON, done){
+exports.addPlant = function(plantJSON){
   return plant.insert(plantJSON);
 }
 

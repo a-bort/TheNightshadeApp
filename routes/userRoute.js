@@ -21,23 +21,23 @@ var shared = require("./sharedRoute.js");
        .then(function(user){
          req.login(user, function(err){
            if(err) { console.log(err); }
-           res.redirect('/');
+           shared.defaultSuccess(res, "User successfully created");
          });
        }).catch(function(e){
          console.log(e);
-         res.redirect('/register?error=' + encodeURIComponent("Exception creating user") + "&message=" + encodeURIComponent("User not created"));
+         shared.defaultError(res, "User not created");
        });
      }
    });
 
    router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }),
     function(req, res){
-      res.redirect('/');
+      shared.defaultSuccess(res, "User successfully logged in");
     });
 
     router.get('/logout', function(req, res){
       var ret = req.query.return || "/";
       req.logout();
-      res.redirect(ret);
+      res.status(200).send({message: "User successfully logged out", ret: ret});
     });
  }

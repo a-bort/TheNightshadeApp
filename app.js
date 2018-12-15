@@ -29,9 +29,10 @@ global.pool = Promise.promisifyAll(pool);
 
 //General App Middleware
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use('/api', router);
-app.use(session({secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false}));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(session({secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false}));
 
 //Passport Middleware
 require("./service/passportService.js").configurePassport(passport);
@@ -39,6 +40,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
+app.use('/api', router);
+
 require('./routes/userRoute.js')(router, passport);
 require('./routes/plantRoute.js')(router);
 require('./routes/defaultRoute.js')(router);

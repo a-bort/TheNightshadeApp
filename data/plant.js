@@ -13,7 +13,7 @@ exports.getAll = function(){
   });
 }
 
-exports.insert = function(plantJSON, done){
+exports.insert = function(plantJSON){
   return pool.queryAsync('INSERT INTO plant SET ?', new PlantModel(plantJSON).toDB()).then(function(results, fields){
     return results.insertId;
   });

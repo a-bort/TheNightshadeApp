@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class List extends Component {
+class Plants extends Component {
   // Initialize the state
   constructor(props){
     super(props);
@@ -26,14 +26,15 @@ class List extends Component {
 
     return (
       <div className="App">
-        <h1>List of Items</h1>
+        <a href="/add">+Add</a>
+        <h1>Plant Database</h1>
         {/* Check to see if any items are found*/}
         {(data && data.plants && data.plants.length) ? (
           <div>
             {/* Render the list of items */}
             {data.plants.map((item) => {
               return(
-                <div>
+                <div key={item.plantID}>
                   {item.commonName}
                 </div>
               );
@@ -50,4 +51,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export default Plants;

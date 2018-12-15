@@ -12,12 +12,13 @@ module.exports = function(router){
     });
   });
 
-  router.post('/plants/add', shared.requireAdmin, function(req, res){
+  router.post('/plants/add', function(req, res){
     plantService.addPlant(req.body)
+    .then(function(){
+      shared.defaultSuccess(res, "Plant added successfully");
+    })
     .catch(function(e){
-      console.log(e);
-    }).finally(function(){
-      return shared.defaultRedirect(res);
+      res.json({error: "Unable to add plant"});
     });
   });
 
