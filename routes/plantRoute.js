@@ -12,7 +12,7 @@ module.exports = function(router){
     });
   });
 
-  router.post('/plants/add', function(req, res){
+  router.post('/plants/add', shared.requireAdmin, function(req, res){
     plantService.addPlant(req.body)
     .then(function(){
       shared.defaultSuccess(res, "Plant added successfully");

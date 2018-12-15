@@ -35,6 +35,7 @@ class AddPlantForm extends Component {
       body: JSON.stringify(this.state)
     })
     .then(response => {
+      if(!response.ok) throw Error('Request rejected with status ' + response.status);
       response.json().then(function(data){
         window.location = "/plants?message=" + data.message;
         console.log(data);
