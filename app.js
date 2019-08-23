@@ -13,6 +13,8 @@ var express = require('express')
 
 var app = express();
 var router = express.Router();
+
+require('dotenv').config()
 var port = process.env.PORT || process.env.APP_PORT;
 
 var pool = mysql.createPool({

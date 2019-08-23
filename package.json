@@ -7,13 +7,14 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
+    "bcrypt": "2.*",
+    "bluebird": "3.*",
+    "dotenv": "^8.0.0",
     "express": ">=4.5.0",
     "express-session": "1.*",
-    "pug": "2.*",
     "mysql": "2.*",
     "passport": "0.*",
     "passport-local": "1.*",
-    "bcrypt": "2.*",
-    "bluebird": "3.*"
+    "pug": "2.*"
   }
 }
